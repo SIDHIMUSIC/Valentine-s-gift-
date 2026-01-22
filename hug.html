@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Hug Day</title>
+    <style>
+        body { background: #f3e5f5; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif; transition: transform 0.3s; }
+        h1 { color: #7b1fa2; }
+        .emoji { font-size: 100px; margin-bottom: 20px; }
+        .squeeze { animation: hugAnim 0.5s ease-in-out; }
+        
+        @keyframes hugAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.9); } /* Screen shrinks */
+            100% { transform: scale(1); }
+        }
+
+        button { padding: 15px 30px; background: #7b1fa2; color: white; border: none; border-radius: 50px; font-size: 1.3rem; cursor: pointer; box-shadow: 0 5px 15px rgba(123, 31, 162, 0.3); }
+    </style>
+</head>
+<body>
+    <div class="emoji">🤗</div>
+    <h1>Sending a Big Hug!</h1>
+    <p>Words aren't enough, so...</p>
+    
+    <button onclick="giveHug()">Click to Hug Me</button>
+    <p id="msg" style="display:none; color: #7b1fa2; font-weight: bold; margin-top: 20px;">*Tight Squeeze* ❤️</p>
+
+    <br><br>
+    <a href="index.html" style="color: #888; text-decoration: none;">⬅ Back</a>
+
+    <script>
+        function giveHug() {
+            document.body.classList.add('squeeze');
+            document.getElementById('msg').style.display = 'block';
+            setTimeout(() => {
+                document.body.classList.remove('squeeze');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+
