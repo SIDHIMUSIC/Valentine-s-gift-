@@ -1,44 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Hug Day</title>
-    <style>
-        body { background: #f3e5f5; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif; transition: transform 0.3s; }
-        h1 { color: #7b1fa2; }
-        .emoji { font-size: 100px; margin-bottom: 20px; }
-        .squeeze { animation: hugAnim 0.5s ease-in-out; }
-        
-        @keyframes hugAnim {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.9); } /* Screen shrinks */
-            100% { transform: scale(1); }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harry ❤️ Muskan | Hug Day</title>
 
-        button { padding: 15px 30px; background: #7b1fa2; color: white; border: none; border-radius: 50px; font-size: 1.3rem; cursor: pointer; box-shadow: 0 5px 15px rgba(123, 31, 162, 0.3); }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Nunito',sans-serif;
+  overflow:hidden;
+  transition:background 1s ease;
+}
+
+/* Reel container */
+.reel{
+  width:100%;
+  max-width:420px;
+  height:100%;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Names */
+.names{
+  position:absolute;
+  top:30px;
+  font-family:'Fredoka One';
+  color:#fff;
+  font-size:2rem;
+  text-shadow:0 8px 20px rgba(0,0,0,.4);
+  z-index:5;
+}
+
+/* Scene */
+.scene{
+  position:relative;
+  width:260px;
+  height:260px;
+}
+
+/* Characters */
+.char{
+  position:absolute;
+  bottom:0;
+  font-size:110px;
+  transition:all 1s cubic-bezier(.25,1,.4,1);
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.4));
+}
+
+.boy{left:-50px}
+.girl{right:-50px}
+
+/* Hug state */
+.scene.hug .boy{left:55px}
+.scene.hug .girl{right:55px}
+.scene.hug .char{transform:scale(.95)}
+
+/* Heart */
+.heart{
+  position:absolute;
+  top:60px;
+  left:50%;
+  transform:translateX(-50%) scale(0);
+  font-size:42px;
+  transition:.6s;
+}
+.scene.hug .heart{
+  transform:translateX(-50%) scale(1.4);
+}
+
+/* Caption */
+.caption{
+  position:absolute;
+  bottom:40px;
+  color:#fff;
+  font-size:1.1rem;
+  opacity:.85;
+}
+
+/* Replay button */
+.btn{
+  position:absolute;
+  bottom:95px;
+  padding:14px 45px;
+  border-radius:40px;
+  border:none;
+  background:#fff;
+  color:#ff4d6d;
+  font-family:'Fredoka One';
+  font-size:1.3rem;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
+  display:none;
+}
+
+/* Floating hearts */
+.float{
+  position:fixed;
+  font-size:20px;
+  animation:floatUp 3s linear forwards;
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh) rotate(360deg);opacity:0}
+}
+
+/* Warm glow */
+body.warm{
+  background:linear-gradient(180deg,#ff758c,#ff7eb3);
+}
+</style>
 </head>
+
 <body>
-    <div class="emoji">🤗</div>
-    <h1>Sending a Big Hug!</h1>
-    <p>Words aren't enough, so...</p>
-    
-    <button onclick="giveHug()">Click to Hug Me</button>
-    <p id="msg" style="display:none; color: #7b1fa2; font-weight: bold; margin-top: 20px;">*Tight Squeeze* ❤️</p>
 
-    <br><br>
-    <a href="index.html" style="color: #888; text-decoration: none;">⬅ Back</a>
+<div class="reel">
 
-    <script>
-        function giveHug() {
-            document.body.classList.add('squeeze');
-            document.getElementById('msg').style.display = 'block';
-            setTimeout(() => {
-                document.body.classList.remove('squeeze');
-            }, 500);
-        }
-    </script>
+  <div class="names">Harry ❤️ Muskan</div>
+
+  <div class="scene" id="scene">
+    <div class="char boy">👨</div>
+    <div class="heart">❤️</div>
+    <div class="char girl">👩</div>
+  </div>
+
+  <button class="btn" id="btn" onclick="replay()">Replay 🔁</button>
+
+  <div class="caption">A warm hug, forever 🤗</div>
+
+</div>
+
+<script>
+let played=false;
+
+// AUTO PLAY like Instagram reel
+window.onload = () => {
+  setTimeout(startHug, 800);
+};
+
+function startHug(){
+  if(played) return;
+  played=true;
+
+  const scene=document.getElementById('scene');
+  scene.classList.add('hug');
+  document.body.classList.add('warm');
+
+  setTimeout(()=>{
+    hearts();
+    document.getElementById('btn').style.display='block';
+  },600);
+}
+
+function replay(){
+  location.reload();
+}
+
+function hearts(){
+  let i=0;
+  const int=setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="float";
+    h.innerText="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="100vh";
+    h.style.fontSize=(Math.random()*25+15)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+    i++;
+    if(i>30) clearInterval(int);
+  },150);
+}
+</script>
+
 </body>
 </html>
-
