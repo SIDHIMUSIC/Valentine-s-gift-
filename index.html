@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@600&display=swap" rel="stylesheet">
     <style>
         body { background: #ffe6e6; font-family: 'Nunito', sans-serif; text-align: center; padding: 20px; }
-        h1 { font-family: 'Pacifico', cursive; color: #ff69b4; font-size: 2.5rem; margin-bottom: 5px; }
-        p { color: #666; margin-bottom: 30px; }
+        h1 { font-family: 'Pacifico', cursive; color: #ff69b4; font-size: 2.2rem; margin-bottom: 5px; }
+        p { color: #666; margin-bottom: 30px; font-size: 1.1rem; }
         
         .grid { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
         
@@ -16,129 +16,101 @@
             background: white; padding: 18px; border-radius: 15px; text-decoration: none;
             color: #555; font-size: 1.1rem; display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 8px solid #ccc; 
-            transition: transform 0.2s, opacity 0.3s;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer; transition: transform 0.2s;
         }
 
-        /* Unlocked State (Active) */
-        .unlocked { cursor: pointer; transform: scale(1); }
-        .unlocked:active { transform: scale(0.98); }
-
-        /* Locked State */
-        .locked { 
-            background: #eee; 
-            color: #999; 
-            cursor: not-allowed; 
-            opacity: 0.8; 
-            filter: grayscale(100%);
-        }
+        .day-btn:active { transform: scale(0.98); }
         
         .icon { font-size: 1.5rem; }
-        .lock-icon { font-size: 1.2rem; margin-left: 10px; }
-
-        /* Color Borders for Unlocked Items */
-        .day-btn.rose.unlocked { border-color: #e91e63; }
-        .day-btn.propose.unlocked { border-color: #9c27b0; }
-        .day-btn.choco.unlocked { border-color: #795548; }
-        .day-btn.teddy.unlocked { border-color: #ff9800; }
-        .day-btn.promise.unlocked { border-color: #2196f3; }
-        .day-btn.hug.unlocked { border-color: #673ab7; }
-        .day-btn.kiss.unlocked { border-color: #f44336; }
-        .day-btn.val.unlocked { border-color: #ff4081; }
+        
+        /* Different Colors for border */
+        .rose { border-left-color: #e91e63; }
+        .propose { border-left-color: #9c27b0; }
+        .choco { border-left-color: #795548; }
+        .teddy { border-left-color: #ff9800; }
+        .promise { border-left-color: #2196f3; }
+        .hug { border-left-color: #673ab7; }
+        .kiss { border-left-color: #f44336; }
+        .val { border-left-color: #ff4081; }
 
     </style>
 </head>
 <body>
 
     <h1>7 Days of Love</h1>
-    <p>Unlock a new surprise every day... 🔐</p>
+    <p>Ask me for the password to unlock... 🔐</p>
 
     <div class="grid">
-        <div onclick="checkDate(7, 'rose.html')" class="day-btn rose locked" id="day7">
-            <span>Feb 7: Rose Day</span> 
-            <span class="icon" id="icon7">🔒</span>
+        <div onclick="unlockDay('rose')" class="day-btn rose">
+            <span>Feb 7: Rose Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(8, 'propose.html')" class="day-btn propose locked" id="day8">
-            <span>Feb 8: Propose Day</span> 
-            <span class="icon" id="icon8">🔒</span>
+        <div onclick="unlockDay('propose')" class="day-btn propose">
+            <span>Feb 8: Propose Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(9, 'chocolate.html')" class="day-btn choco locked" id="day9">
-            <span>Feb 9: Chocolate Day</span> 
-            <span class="icon" id="icon9">🔒</span>
+        <div onclick="unlockDay('chocolate')" class="day-btn choco">
+            <span>Feb 9: Chocolate Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(10, 'teddy.html')" class="day-btn teddy locked" id="day10">
-            <span>Feb 10: Teddy Day</span> 
-            <span class="icon" id="icon10">🔒</span>
+        <div onclick="unlockDay('teddy')" class="day-btn teddy">
+            <span>Feb 10: Teddy Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(11, 'promise.html')" class="day-btn promise locked" id="day11">
-            <span>Feb 11: Promise Day</span> 
-            <span class="icon" id="icon11">🔒</span>
+        <div onclick="unlockDay('promise')" class="day-btn promise">
+            <span>Feb 11: Promise Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(12, 'hug.html')" class="day-btn hug locked" id="day12">
-            <span>Feb 12: Hug Day</span> 
-            <span class="icon" id="icon12">🔒</span>
+        <div onclick="unlockDay('hug')" class="day-btn hug">
+            <span>Feb 12: Hug Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(13, 'kiss.html')" class="day-btn kiss locked" id="day13">
-            <span>Feb 13: Kiss Day</span> 
-            <span class="icon" id="icon13">🔒</span>
+        <div onclick="unlockDay('kiss')" class="day-btn kiss">
+            <span>Feb 13: Kiss Day</span> <span class="icon">🔒</span>
         </div>
 
-        <div onclick="checkDate(14, 'valentine.html')" class="day-btn val locked" id="day14">
-            <span>Feb 14: Valentine's</span> 
-            <span class="icon" id="icon14">🔒</span>
+        <div onclick="unlockDay('valentine')" class="day-btn val">
+            <span>Feb 14: Valentine's</span> <span class="icon">🔒</span>
         </div>
     </div>
 
     <script>
-        // Icons mapping
-        const icons = {
-            7: "🌹", 8: "💍", 9: "🍫", 10: "🧸", 
-            11: "🤝", 12: "🤗", 13: "💋", 14: "❤️"
+        // --- 🔐 YAHAN APNA PASSWORD SET KRO 🔐 ---
+        const passwords = {
+            'rose':      'rose123',     // Password for Feb 7
+            'propose':   'marryme',     // Password for Feb 8
+            'chocolate': 'sweet',       // Password for Feb 9
+            'teddy':     'bear',        // Password for Feb 10
+            'promise':   'forever',     // Password for Feb 11
+            'hug':       'warmth',      // Password for Feb 12
+            'kiss':      'muah',        // Password for Feb 13
+            'valentine': 'iloveyou'     // Password for Feb 14
         };
 
-        // Get Current Date
-        const today = new Date();
-        const currentMonth = today.getMonth() + 1; // Jan is 0, Feb is 1
-        const currentDate = today.getDate();
+        // --- 🔗 FILE LINKS ---
+        const links = {
+            'rose':      'rose.html',
+            'propose':   'propose.html',
+            'chocolate': 'chocolate.html',
+            'teddy':     'teddy.html',
+            'promise':   'promise.html',
+            'hug':       'hug.html',
+            'kiss':      'kiss.html',
+            'valentine': 'valentine.html'
+        };
 
-        // Testing Mode: Agar aaj test karna hai to niche wali line uncomment kar dena
-        // const currentDate = 14; // (Isse saare din khul jayenge check karne ke liye)
+        function unlockDay(dayName) {
+            let userPass = prompt(`Enter Password for ${dayName} Day:`);
+            
+            if (userPass === null) return; // If cancelled
 
-        // Function to handle clicks
-        function checkDate(targetDate, link) {
-            // Logic: Unlock if Month is Feb (2) AND Date >= Target Date
-            // Note: In Javascript Month 1 = February
-            if (currentMonth === 2 && currentDate >= targetDate) {
-                window.location.href = link;
-            } else if (currentMonth > 2) {
-                // If it's March or later, everything is open
-                window.location.href = link;
+            // Check Password (Case Insensitive -> 'Rose123' and 'rose123' both work)
+            if (userPass.toLowerCase() === passwords[dayName].toLowerCase()) {
+                window.location.href = links[dayName];
             } else {
-                alert(`Sabar karo! Ye surprise ${targetDate} February ko khulega 🔒😉`);
+                alert("❌ Galat Password! Mere se pucho pehle 😜");
             }
         }
-
-        // Function to update UI on load
-        window.onload = function() {
-            for (let i = 7; i <= 14; i++) {
-                const btn = document.getElementById(`day${i}`);
-                const iconSpan = document.getElementById(`icon${i}`);
-
-                if (currentMonth > 2 || (currentMonth === 2 && currentDate >= i)) {
-                    // Unlock this day
-                    btn.classList.remove('locked');
-                    btn.classList.add('unlocked');
-                    iconSpan.innerText = icons[i]; // Change lock to real icon
-                }
-            }
-        };
     </script>
 
 </body>
