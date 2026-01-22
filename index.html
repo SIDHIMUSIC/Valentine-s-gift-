@@ -87,12 +87,7 @@ p{
   border-left:6px solid #ccc;
 }
 .day-btn:hover{transform:translateY(-3px)}
-
-.day-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+.day-top{display:flex;justify-content:space-between}
 .icon{font-size:1.3rem}
 
 /* colors */
@@ -106,17 +101,10 @@ p{
 .val{border-left-color:#ff4081}
 
 /* countdown */
-.countdown{
-  margin-top:6px;
-  font-size:.8rem;
-  color:#555;
-}
+.countdown{margin-top:6px;font-size:.8rem;color:#555}
 
 /* unlocked */
-.unlocked{
-  background:#e8f5e9;
-  color:#2e7d32;
-}
+.unlocked{background:#e8f5e9;color:#2e7d32}
 .unlocked .countdown{display:none}
 
 /* shake */
@@ -129,86 +117,99 @@ p{
 
 /* sparkles */
 .spark{
-  position:fixed;
-  width:6px;height:6px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 12px #fff;
+  position:fixed;width:6px;height:6px;border-radius:50%;
+  background:#fff;box-shadow:0 0 12px #fff;
   animation:spark 1.2s linear forwards;
 }
 @keyframes spark{
   to{transform:translateY(-80px) scale(0);opacity:0}
 }
+
+/* MUSIC CONTROL */
+#musicControl{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);
+  border-radius:40px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,.2);
+  z-index:999;
+}
+#muteBtn{
+  border:none;background:none;font-size:22px;cursor:pointer;
+}
+#volumeSlider{width:90px}
 </style>
 </head>
 
 <body>
 
 <div class="bg-hearts" id="bg"></div>
-
 <div class="brand">Harry ❤️ Muskan</div>
 
 <div class="container">
-  <h1>7 Days of Love</h1>
-  <p>Har din apne waqt pe unlock hoga ⏳</p>
+<h1>7 Days of Love</h1>
+<p>Har din apne waqt pe unlock hoga ⏳</p>
 
-  <div class="grid">
-
-    <div class="day-btn rose" onclick="unlock('rose',this)">
-      <div class="day-top">Feb 7: Rose Day <span class="icon">🌹🔒</span></div>
-      <div class="countdown" data-day="7"></div>
-    </div>
-
-    <div class="day-btn propose" onclick="unlock('propose',this)">
-      <div class="day-top">Feb 8: Propose Day <span class="icon">💍🔒</span></div>
-      <div class="countdown" data-day="8"></div>
-    </div>
-
-    <div class="day-btn choco" onclick="unlock('chocolate',this)">
-      <div class="day-top">Feb 9: Chocolate Day <span class="icon">🍫🔒</span></div>
-      <div class="countdown" data-day="9"></div>
-    </div>
-
-    <div class="day-btn teddy" onclick="unlock('teddy',this)">
-      <div class="day-top">Feb 10: Teddy Day <span class="icon">🧸🔒</span></div>
-      <div class="countdown" data-day="10"></div>
-    </div>
-
-    <div class="day-btn promise" onclick="unlock('promise',this)">
-      <div class="day-top">Feb 11: Promise Day <span class="icon">🤞🔒</span></div>
-      <div class="countdown" data-day="11"></div>
-    </div>
-
-    <div class="day-btn hug" onclick="unlock('hug',this)">
-      <div class="day-top">Feb 12: Hug Day <span class="icon">🤗🔒</span></div>
-      <div class="countdown" data-day="12"></div>
-    </div>
-
-    <div class="day-btn kiss" onclick="unlock('kiss',this)">
-      <div class="day-top">Feb 13: Kiss Day <span class="icon">💋🔒</span></div>
-      <div class="countdown" data-day="13"></div>
-    </div>
-
-    <div class="day-btn val" onclick="unlock('valentine',this)">
-      <div class="day-top">Feb 14: Valentine <span class="icon">❤️🔒</span></div>
-      <div class="countdown" data-day="14"></div>
-    </div>
-
-  </div>
+<div class="grid">
+<div class="day-btn rose" onclick="unlock('rose',this)">
+  <div class="day-top">Feb 7: Rose Day <span class="icon">🌹🔒</span></div>
+  <div class="countdown" data-day="7"></div>
 </div>
 
-<!-- 🎵 BACKGROUND MUSIC -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="bg-music.mp3" type="audio/mpeg">
-</audio>
+<div class="day-btn propose" onclick="unlock('propose',this)">
+  <div class="day-top">Feb 8: Propose Day <span class="icon">💍🔒</span></div>
+  <div class="countdown" data-day="8"></div>
+</div>
 
-<!-- ⏰ TICK SOUND -->
-<audio id="tickSound" preload="auto">
-  <source src="tick.mp3" type="audio/mpeg">
-</audio>
+<div class="day-btn choco" onclick="unlock('chocolate',this)">
+  <div class="day-top">Feb 9: Chocolate Day <span class="icon">🍫🔒</span></div>
+  <div class="countdown" data-day="9"></div>
+</div>
+
+<div class="day-btn teddy" onclick="unlock('teddy',this)">
+  <div class="day-top">Feb 10: Teddy Day <span class="icon">🧸🔒</span></div>
+  <div class="countdown" data-day="10"></div>
+</div>
+
+<div class="day-btn promise" onclick="unlock('promise',this)">
+  <div class="day-top">Feb 11: Promise Day <span class="icon">🤞🔒</span></div>
+  <div class="countdown" data-day="11"></div>
+</div>
+
+<div class="day-btn hug" onclick="unlock('hug',this)">
+  <div class="day-top">Feb 12: Hug Day <span class="icon">🤗🔒</span></div>
+  <div class="countdown" data-day="12"></div>
+</div>
+
+<div class="day-btn kiss" onclick="unlock('kiss',this)">
+  <div class="day-top">Feb 13: Kiss Day <span class="icon">💋🔒</span></div>
+  <div class="countdown" data-day="13"></div>
+</div>
+
+<div class="day-btn val" onclick="unlock('valentine',this)">
+  <div class="day-top">Feb 14: Valentine <span class="icon">❤️🔒</span></div>
+  <div class="countdown" data-day="14"></div>
+</div>
+</div>
+</div>
+
+<!-- AUDIO -->
+<audio id="tickSound" src="tick.mp3"></audio>
+<audio id="bgMusic" src="bgmusic.mp3" loop></audio>
+
+<!-- MUSIC CONTROL -->
+<div id="musicControl">
+  <button id="muteBtn">🔊</button>
+  <input type="range" id="volumeSlider" min="0" max="100">
+</div>
 
 <script>
-/* passwords & links */
 const passwords={
   rose:'rose123',propose:'marryme',chocolate:'sweet',
   teddy:'bear',promise:'forever',hug:'warmth',
@@ -221,54 +222,58 @@ const links={
   kiss:'kiss.html',valentine:'valentine.html'
 };
 
-/* tick sound */
+/* TICK SOUND */
 let tickInterval=null;
 function startTick(){
-  if(tickInterval) return;
-  const tick=document.getElementById("tickSound");
+  const t=document.getElementById("tickSound");
   tickInterval=setInterval(()=>{
-    tick.currentTime=0;
-    tick.play().catch(()=>{});
+    t.currentTime=0;t.play().catch(()=>{});
   },1000);
 }
-function stopTick(){
-  clearInterval(tickInterval);
-  tickInterval=null;
-}
+function stopTick(){clearInterval(tickInterval);}
 
-/* 🎵 background music */
-let musicStarted=false;
-function startBackgroundMusic(){
-  if(musicStarted) return;
-  musicStarted=true;
+/* BACKGROUND MUSIC */
+const music=document.getElementById("bgMusic");
+const muteBtn=document.getElementById("muteBtn");
+const slider=document.getElementById("volumeSlider");
 
-  const music=document.getElementById("bgMusic");
+let vol=localStorage.getItem("bgVol")||0.6;
+let muted=localStorage.getItem("bgMute")==="true";
+music.volume=vol;slider.value=vol*100;music.muted=muted;
+muteBtn.innerText=muted?"🔇":"🔊";
+
+function startMusic(){
   music.volume=0;
   music.play().catch(()=>{});
-
+  let target=slider.value/100;
   let v=0;
   const fade=setInterval(()=>{
-    if(v<0.6){
-      v+=0.02;
-      music.volume=v;
-    }else clearInterval(fade);
+    if(v<target){v+=0.02;music.volume=v}
+    else clearInterval(fade);
   },200);
 }
 
-/* unlock */
+slider.oninput=()=>{
+  music.volume=slider.value/100;
+  localStorage.setItem("bgVol",music.volume);
+}
+muteBtn.onclick=()=>{
+  music.muted=!music.muted;
+  muteBtn.innerText=music.muted?"🔇":"🔊";
+  localStorage.setItem("bgMute",music.muted);
+}
+
+/* UNLOCK */
 function unlock(day,el){
   startTick();
-  startBackgroundMusic();
-
-  const pass=prompt(`Password for ${day} day`);
-  if(!pass) return;
-
-  if(pass.toLowerCase()===passwords[day]){
+  const p=prompt("Password?");
+  if(!p) return;
+  if(p.toLowerCase()===passwords[day]){
     stopTick();
+    startMusic();
     el.classList.add("unlocked");
     el.querySelector(".icon").innerText="🔓";
-    celebrate(el);
-    setTimeout(()=>window.location.href=links[day],900);
+    setTimeout(()=>location.href=links[day],1200);
   }else{
     el.classList.add("shake");
     setTimeout(()=>el.classList.remove("shake"),400);
@@ -276,36 +281,24 @@ function unlock(day,el){
   }
 }
 
-/* sparkles */
-function celebrate(el){
-  for(let i=0;i<15;i++){
-    const s=document.createElement("div");
-    s.className="spark";
-    s.style.left=Math.random()*100+"vw";
-    s.style.top=(el.getBoundingClientRect().top+20)+"px";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1200);
-  }
-}
-
-/* countdown */
+/* COUNTDOWN */
 setInterval(()=>{
   document.querySelectorAll(".countdown").forEach(cd=>{
+    const d=cd.dataset.day;
     const now=new Date();
-    const target=new Date(now.getFullYear(),1,cd.dataset.day);
-    const diff=target-now;
-    if(diff<=0){
-      cd.innerText="Unlocked today 🎉";
-    }else{
-      const h=Math.floor(diff/1000/60/60);
-      const m=Math.floor(diff/1000/60)%60;
-      const s=Math.floor(diff/1000)%60;
-      cd.innerText=`⏳ Opens in ${h}h ${m}m ${s}s`;
+    const t=new Date(now.getFullYear(),1,d);
+    const diff=t-now;
+    if(diff<=0) cd.innerText="Unlocked today 🎉";
+    else{
+      const h=Math.floor(diff/36e5),
+            m=Math.floor(diff/6e4)%60,
+            s=Math.floor(diff/1e3)%60;
+      cd.innerText=`⏳ ${h}h ${m}m ${s}s`;
     }
   });
 },1000);
 
-/* hearts bg */
+/* BG HEARTS */
 (()=>{
   const bg=document.getElementById("bg");
   for(let i=0;i<16;i++){
