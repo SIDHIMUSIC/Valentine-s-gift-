@@ -1,30 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Valentine</title>
-    <style>
-        body { background: #ffe6e6; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; text-align: center; }
-        h1 { color: #e91e63; font-size: 2.5rem; }
-        .heart { font-size: 80px; animation: beat 1s infinite; }
-        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-        .btn { padding: 15px 30px; font-size: 1.2rem; border: none; border-radius: 30px; cursor: pointer; margin: 10px; color: white; }
-        .yes { background: #4CAF50; }
-        .no { background: #f44336; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harry ❤️ Muskan | Valentine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;height:100vh;overflow:hidden;
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fecfef);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 1s ease;
+}
+body.night{
+  background:radial-gradient(circle at center,#0f2027,#203a43,#2c5364);
+}
+
+/* Top names (reel style) */
+.names{
+  position:absolute;top:18px;width:100%;text-align:center;
+  font-family:'Dancing Script';font-size:2.4rem;color:#fff;
+  text-shadow:0 8px 20px rgba(0,0,0,.35);z-index:20;
+}
+
+/* Header */
+h1{
+  position:absolute;top:80px;width:100%;text-align:center;
+  font-family:'Dancing Script';font-size:2.2rem;color:#d32f2f;
+  transition:opacity .5s;z-index:15;
+}
+body.night h1{color:#fff}
+
+/* Envelope */
+.env-wrap{position:relative;width:300px;height:200px;cursor:pointer;z-index:10}
+.envelope{
+  position:absolute;bottom:0;width:100%;height:100%;
+  background:#d32f2f;border-radius:0 0 10px 10px;
+  box-shadow:0 10px 20px rgba(0,0,0,.25);overflow:hidden;
+}
+.flap{
+  position:absolute;top:0;left:0;width:0;height:0;
+  border-left:150px solid transparent;border-right:150px solid transparent;
+  border-top:110px solid #b71c1c;
+  transform-origin:top;transition:transform .6s,z-index .6s;z-index:3;
+}
+.seal{
+  position:absolute;top:30px;left:50%;transform:translateX(-50%);
+  font-size:38px;z-index:4;transition:opacity .3s;
+}
+.pocket{
+  position:absolute;bottom:0;left:0;width:0;height:0;
+  border-left:150px solid #e53935;border-right:150px solid #e53935;
+  border-bottom:100px solid transparent;transform:rotate(180deg);z-index:3;
+}
+
+/* Letter */
+.letter{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:90%;height:90%;background:#fff;border-radius:6px;
+  padding:18px;box-shadow:0 -5px 15px rgba(0,0,0,.15);
+  transition:bottom .8s,z-index .1s;z-index:1;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.letter p{
+  font-family:'Dancing Script';font-size:1.5rem;color:#555;margin:6px 0;
+}
+.celebrate{
+  margin-top:10px;border:none;border-radius:20px;
+  background:#d32f2f;color:#fff;padding:8px 18px;cursor:pointer;
+  display:none;
+}
+
+/* Open state */
+.open .flap{transform:rotateX(180deg);z-index:0}
+.open .seal{opacity:0}
+.open .letter{bottom:120px;z-index:5}
+
+/* Final scene */
+.scene{
+  position:absolute;bottom:0;width:100%;height:45%;
+  display:none;align-items:flex-end;justify-content:center;z-index:5;
+}
+.couple{
+  font-size:100px;position:absolute;bottom:20px;transition:all 1s ease;
+}
+.boy{left:-120px}
+.girl{right:-120px;transform:scaleX(-1)}
+.scene.on .boy{left:35%}
+.scene.on .girl{right:35%}
+
+/* Hug */
+.hug{animation:hug .8s infinite alternate}
+@keyframes hug{to{transform:scale(1.05)}}
+
+/* Fireworks */
+.fire{position:absolute;width:6px;height:6px;border-radius:50%;
+  animation:boom 1s ease-out forwards}
+@keyframes boom{to{transform:scale(30);opacity:0}}
+
+/* Back */
+.back{position:absolute;left:15px;top:15px;color:#d32f2f;font-weight:bold;text-decoration:none;z-index:30}
+body.night .back{color:#fff}
+</style>
 </head>
+
 <body>
-    <div class="heart">❤️</div>
-    <h1>Will you be my Valentine?</h1>
-    <p>Today and Always.</p>
-    
-    <div>
-        <button class="btn yes" onclick="alert('Yay! I love you! ❤️')">YES</button>
-        <button class="btn no" onclick="alert('Broken heart... 💔')">No</button>
-    </div>
-    <br>
-    <a href="index.html" style="color: #888;">Back</a>
+
+<a class="back" href="index.html">⬅ Back</a>
+
+<div class="names">Harry ❤️ Muskan</div>
+<h1 id="title">A Message For You… 💌</h1>
+
+<div class="env-wrap" id="env">
+  <div class="flap"></div>
+  <div class="seal">❤️</div>
+
+  <div class="letter">
+    <p id="line1"></p>
+    <p id="line2"></p>
+    <p id="line3"></p>
+    <button class="celebrate" id="go">Celebrate Us 🎉</button>
+  </div>
+
+  <div class="envelope"></div>
+  <div class="pocket"></div>
+</div>
+
+<div class="scene" id="scene">
+  <div class="couple boy">👨‍❤️‍👨</div>
+  <div class="couple girl">👩‍❤️‍👩</div>
+</div>
+
+<script>
+const lines=[
+  "Happy Valentine’s Day ❤️",
+  "Every moment with you feels magical ✨",
+  "I love you, forever 💞"
+];
+
+let opened=false;
+
+function typeText(el,text,delay=40){
+  let i=0; el.textContent="";
+  const t=setInterval(()=>{el.textContent+=text[i++]; if(i>=text.length)clearInterval(t)},delay);
+}
+
+function openEnv(){
+  if(opened) return; opened=true;
+  env.classList.add('open');
+  setTimeout(()=>{
+    typeText(line1,lines[0]);
+    setTimeout(()=>typeText(line2,lines[1]),900);
+    setTimeout(()=>typeText(line3,lines[2]),1800);
+    setTimeout(()=>go.style.display='block',2600);
+  },600);
+}
+
+env.addEventListener('click',openEnv);
+
+// Auto-play like reel
+setTimeout(openEnv,900);
+
+go.onclick=(e)=>{
+  e.stopPropagation();
+  env.style.opacity=0;
+  document.body.classList.add('night');
+  title.textContent="Happy Valentine’s Day 💑";
+  scene.style.display='flex';
+  setTimeout(()=>{
+    scene.classList.add('on');
+    document.querySelectorAll('.couple').forEach(c=>c.classList.add('hug'));
+    fireworks();
+  },200);
+};
+
+function fireworks(){
+  setInterval(()=>{
+    const f=document.createElement('div');
+    const c=['#ff5252','#ffd54f','#69f0ae','#40c4ff'][Math.floor(Math.random()*4)];
+    f.className='fire';
+    f.style.left=Math.random()*100+'vw';
+    f.style.top=Math.random()*50+'vh';
+    f.style.background=c;
+    f.style.boxShadow=`0 0 20px ${c},0 0 40px ${c}`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  },450);
+}
+</script>
+
 </body>
 </html>
-
