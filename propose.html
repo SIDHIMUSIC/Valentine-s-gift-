@@ -3,26 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propose Day</title>
+    <title>Will You? 💍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #e3f2fd; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif; text-align: center; }
-        .box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 80%; }
-        h1 { color: #1565c0; }
-        .ring { font-size: 80px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        button { background: #1565c0; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1.2rem; margin-top: 20px; cursor: pointer; }
+        /* --- ROMANTIC BACKGROUND --- */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* --- THE RING BOX (CSS MAGIC) --- */
+        .ring-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        /* Box Bottom */
+        .box-bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background: #d32f2f; /* Velvet Red */
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+        
+        .box-bottom::before { /* Gold trim */
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 2px;
+            background: #ffd700;
+        }
+
+        /* Box Lid (The moving part) */
+        .box-lid {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: #b71c1c; /* Darker Red */
+            border-radius: 20px 20px 0 0;
+            transform-origin: bottom;
+            transition: transform 0.8s cubic-bezier(0.4, 2.5, 0.6, 0.8); /* Bouncy open */
+            z-index: 3;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+
+        .box-lid::after { /* Gold trim on lid */
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 2px;
+            background: #ffd700;
+        }
+
+        /* The Ring (Hidden initially) */
+        .ring {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            font-size: 80px;
+            z-index: 2;
+            transition: all 1s ease 0.3s; /* Delay to wait for lid */
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+
+        /* --- OPEN STATE ANIMATION --- */
+        .ring-box.open .box-lid {
+            transform: rotateX(-110deg); /* Flip open */
+        }
+
+        .ring-box.open .ring {
+            top: -40px; /* Rise up */
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* --- MESSAGE & BUTTONS --- */
+        .proposal-area {
+            position: absolute;
+            bottom: 10%;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none; /* Disabled until open */
+        }
+
+        .proposal-text {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .btn-yes { background: #fff; color: #9c27b0; }
+        .btn-yes:hover { transform: scale(1.1); background: #f3e5f5; }
+
+        /* --- CONFETTI --- */
+        .confetti { position: fixed; z-index: 99; top: -20px; font-size: 20px; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+
+        /* Back Button */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
     </style>
 </head>
 <body>
-    <div class="box">
+
+    <a href="index.html" class="back-link">⬅ Back</a>
+
+    <h1 id="main-title">Tap the Box...</h1>
+
+    <div class="ring-box" onclick="openBox()">
+        <div class="box-lid"></div>
         <div class="ring">💍</div>
-        <h1>Happy Propose Day</h1>
-        <p>I don't need a special day to say this, but...</p>
-        <p><strong>Will you stay with me forever?</strong></p>
-        <button onclick="alert('Yay! ❤️')">YES, I Will!</button>
+        <div class="box-bottom"></div>
     </div>
-    <br>
-    <a href="index.html" style="color: #888; text-decoration: none;">Back</a>
+
+    <div class="proposal-area" id="proposal">
+        <p class="proposal-text">I don't need a special day, but today feels right.<br>Will you be mine forever?</p>
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="acceptProposal()">YES! ❤️</button>
+        </div>
+    </div>
+
+    <script>
+        let isOpen = false;
+
+        function openBox() {
+            if(isOpen) return; // Prevent double click
+            
+            const box = document.querySelector('.ring-box');
+            const title = document.getElementById('main-title');
+            const proposal = document.getElementById('proposal');
+
+            // Open Animation
+            box.classList.add('open');
+            title.innerText = "Oh wow...";
+            
+            // Show Proposal after 1 second
+            setTimeout(() => {
+                title.style.opacity = '0'; // Hide top title
+                proposal.style.opacity = '1';
+                proposal.style.pointerEvents = 'auto'; // Enable buttons
+            }, 800);
+
+            isOpen = true;
+        }
+
+        function acceptProposal() {
+            // Change Text
+            document.querySelector('.proposal-text').innerHTML = "You just made me the happiest person! 💖<br>I Love You!";
+            document.querySelector('.btn-yes').style.display = 'none'; // Hide button
+            
+            // Trigger Confetti
+            setInterval(createConfetti, 100);
+        }
+
+        function createConfetti() {
+            const emojis = ['💍', '💖', '✨', '🌸', '❤️'];
+            const c = document.createElement('div');
+            c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            c.classList.add('confetti');
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(c);
+            
+            setTimeout(() => c.remove(), 5000);
+        }
+    </script>
+
 </body>
 </html>
-
