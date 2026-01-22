@@ -1,117 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Week ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@600&display=swap" rel="stylesheet">
-    <style>
-        body { background: #ffe6e6; font-family: 'Nunito', sans-serif; text-align: center; padding: 20px; }
-        h1 { font-family: 'Pacifico', cursive; color: #ff69b4; font-size: 2.2rem; margin-bottom: 5px; }
-        p { color: #666; margin-bottom: 30px; font-size: 1.1rem; }
-        
-        .grid { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
-        
-        .day-btn {
-            background: white; padding: 18px; border-radius: 15px; text-decoration: none;
-            color: #555; font-size: 1.1rem; display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 8px solid #ccc; 
-            cursor: pointer; transition: transform 0.2s;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Week ❤️ | Harry & Muskan</title>
 
-        .day-btn:active { transform: scale(0.98); }
-        
-        .icon { font-size: 1.5rem; }
-        
-        /* Different Colors for border */
-        .rose { border-left-color: #e91e63; }
-        .propose { border-left-color: #9c27b0; }
-        .choco { border-left-color: #795548; }
-        .teddy { border-left-color: #ff9800; }
-        .promise { border-left-color: #2196f3; }
-        .hug { border-left-color: #673ab7; }
-        .kiss { border-left-color: #f44336; }
-        .val { border-left-color: #ff4081; }
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-    </style>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;padding:20px;min-height:100vh;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#ffdde1);
+  background-size:400% 400%;
+  animation:bg 15s ease infinite;
+  display:flex;flex-direction:column;align-items:center;
+}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* floating hearts */
+.bg-hearts{position:fixed;inset:0;pointer-events:none;z-index:0}
+.heart-bg{
+  position:absolute;bottom:-50px;
+  animation:float 8s linear infinite;
+  opacity:.4;
+}
+@keyframes float{
+  to{transform:translateY(-120vh) rotate(360deg)}
+}
+
+/* branding */
+.brand{
+  font-family:'Dancing Script';
+  font-size:2.6rem;
+  color:#fff;
+  text-shadow:0 6px 20px rgba(0,0,0,.25);
+  margin-top:10px;
+  z-index:10;
+}
+
+/* glass card */
+.container{
+  z-index:10;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.4);
+  padding:30px;
+  width:100%;
+  max-width:420px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+  margin-top:20px;
+}
+
+h1{
+  font-family:'Dancing Script';
+  color:#fff;
+  font-size:2.8rem;
+  margin:0;
+  text-align:center;
+}
+p{
+  color:#fff;
+  text-align:center;
+  opacity:.9;
+}
+
+/* grid */
+.grid{display:flex;flex-direction:column;gap:14px}
+
+/* day button */
+.day-btn{
+  background:#fff;
+  padding:14px 18px;
+  border-radius:14px;
+  display:flex;
+  flex-direction:column;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+  border-left:6px solid #ccc;
+}
+.day-btn:hover{transform:translateY(-3px)}
+
+.day-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.icon{font-size:1.3rem}
+
+/* colors */
+.rose{border-left-color:#e91e63}
+.propose{border-left-color:#9c27b0}
+.choco{border-left-color:#795548}
+.teddy{border-left-color:#ff9800}
+.promise{border-left-color:#2196f3}
+.hug{border-left-color:#673ab7}
+.kiss{border-left-color:#f44336}
+.val{border-left-color:#ff4081}
+
+/* countdown */
+.countdown{
+  margin-top:6px;
+  font-size:.8rem;
+  color:#555;
+}
+
+/* unlocked */
+.unlocked{
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+.unlocked .countdown{display:none}
+
+/* shake */
+.day-btn.shake{animation:shake .35s}
+@keyframes shake{
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+}
+
+/* sparkles */
+.spark{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 12px #fff;
+  animation:spark 1.2s linear forwards;
+}
+@keyframes spark{
+  to{transform:translateY(-80px) scale(0);opacity:0}
+}
+</style>
 </head>
+
 <body>
 
-    <h1>7 Days of Love</h1>
-    <p>Ask me for the password to unlock... 🔐</p>
+<div class="bg-hearts" id="bg"></div>
 
-    <div class="grid">
-        <div onclick="unlockDay('rose')" class="day-btn rose">
-            <span>Feb 7: Rose Day</span> <span class="icon">🔒</span>
-        </div>
+<div class="brand">Harry ❤️ Muskan</div>
 
-        <div onclick="unlockDay('propose')" class="day-btn propose">
-            <span>Feb 8: Propose Day</span> <span class="icon">🔒</span>
-        </div>
+<div class="container">
+  <h1>7 Days of Love</h1>
+  <p>Har din apne waqt pe unlock hoga ⏳</p>
 
-        <div onclick="unlockDay('chocolate')" class="day-btn choco">
-            <span>Feb 9: Chocolate Day</span> <span class="icon">🔒</span>
-        </div>
+  <div class="grid">
 
-        <div onclick="unlockDay('teddy')" class="day-btn teddy">
-            <span>Feb 10: Teddy Day</span> <span class="icon">🔒</span>
-        </div>
-
-        <div onclick="unlockDay('promise')" class="day-btn promise">
-            <span>Feb 11: Promise Day</span> <span class="icon">🔒</span>
-        </div>
-
-        <div onclick="unlockDay('hug')" class="day-btn hug">
-            <span>Feb 12: Hug Day</span> <span class="icon">🔒</span>
-        </div>
-
-        <div onclick="unlockDay('kiss')" class="day-btn kiss">
-            <span>Feb 13: Kiss Day</span> <span class="icon">🔒</span>
-        </div>
-
-        <div onclick="unlockDay('valentine')" class="day-btn val">
-            <span>Feb 14: Valentine's</span> <span class="icon">🔒</span>
-        </div>
+    <div class="day-btn rose" onclick="unlock('rose',this)">
+      <div class="day-top">Feb 7: Rose Day <span class="icon">🌹🔒</span></div>
+      <div class="countdown" data-day="7"></div>
     </div>
 
-    <script>
-        // --- 🔐 YAHAN APNA PASSWORD SET KRO 🔐 ---
-        const passwords = {
-            'rose':      'rose123',     // Password for Feb 7
-            'propose':   'marryme',     // Password for Feb 8
-            'chocolate': 'sweet',       // Password for Feb 9
-            'teddy':     'bear',        // Password for Feb 10
-            'promise':   'forever',     // Password for Feb 11
-            'hug':       'warmth',      // Password for Feb 12
-            'kiss':      'muah',        // Password for Feb 13
-            'valentine': 'iloveyou'     // Password for Feb 14
-        };
+    <div class="day-btn propose" onclick="unlock('propose',this)">
+      <div class="day-top">Feb 8: Propose Day <span class="icon">💍🔒</span></div>
+      <div class="countdown" data-day="8"></div>
+    </div>
 
-        // --- 🔗 FILE LINKS ---
-        const links = {
-            'rose':      'rose.html',
-            'propose':   'propose.html',
-            'chocolate': 'chocolate.html',
-            'teddy':     'teddy.html',
-            'promise':   'promise.html',
-            'hug':       'hug.html',
-            'kiss':      'kiss.html',
-            'valentine': 'valentine.html'
-        };
+    <div class="day-btn choco" onclick="unlock('chocolate',this)">
+      <div class="day-top">Feb 9: Chocolate Day <span class="icon">🍫🔒</span></div>
+      <div class="countdown" data-day="9"></div>
+    </div>
 
-        function unlockDay(dayName) {
-            let userPass = prompt(`Enter Password for ${dayName} Day:`);
-            
-            if (userPass === null) return; // If cancelled
+    <div class="day-btn teddy" onclick="unlock('teddy',this)">
+      <div class="day-top">Feb 10: Teddy Day <span class="icon">🧸🔒</span></div>
+      <div class="countdown" data-day="10"></div>
+    </div>
 
-            // Check Password (Case Insensitive -> 'Rose123' and 'rose123' both work)
-            if (userPass.toLowerCase() === passwords[dayName].toLowerCase()) {
-                window.location.href = links[dayName];
-            } else {
-                alert("❌ Galat Password! Mere se pucho pehle 😜");
-            }
-        }
-    </script>
+    <div class="day-btn promise" onclick="unlock('promise',this)">
+      <div class="day-top">Feb 11: Promise Day <span class="icon">🤞🔒</span></div>
+      <div class="countdown" data-day="11"></div>
+    </div>
+
+    <div class="day-btn hug" onclick="unlock('hug',this)">
+      <div class="day-top">Feb 12: Hug Day <span class="icon">🤗🔒</span></div>
+      <div class="countdown" data-day="12"></div>
+    </div>
+
+    <div class="day-btn kiss" onclick="unlock('kiss',this)">
+      <div class="day-top">Feb 13: Kiss Day <span class="icon">💋🔒</span></div>
+      <div class="countdown" data-day="13"></div>
+    </div>
+
+    <div class="day-btn val" onclick="unlock('valentine',this)">
+      <div class="day-top">Feb 14: Valentine <span class="icon">❤️🔒</span></div>
+      <div class="countdown" data-day="14"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ⏰ TICK SOUND -->
+<audio id="tickSound" preload="auto">
+  <source src="tick.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* passwords & links */
+const passwords={
+  rose:'rose123',propose:'marryme',chocolate:'sweet',
+  teddy:'bear',promise:'forever',hug:'warmth',
+  kiss:'muah',valentine:'iloveyou'
+};
+
+const links={
+  rose:'rose.html',propose:'propose.html',chocolate:'chocolate.html',
+  teddy:'teddy.html',promise:'promise.html',hug:'hug.html',
+  kiss:'kiss.html',valentine:'valentine.html'
+};
+
+/* tick sound */
+let tickInterval=null;
+function startTick(){
+  if(tickInterval) return;
+  const tick=document.getElementById("tickSound");
+  tickInterval=setInterval(()=>{
+    tick.currentTime=0;
+    tick.play().catch(()=>{});
+  },1000);
+}
+function stopTick(){
+  clearInterval(tickInterval);
+  tickInterval=null;
+}
+
+/* 🎵 background music */
+let musicStarted=false;
+function startBackgroundMusic(){
+  if(musicStarted) return;
+  musicStarted=true;
+
+  const music=document.getElementById("bgMusic");
+  music.volume=0;
+  music.play().catch(()=>{});
+
+  let v=0;
+  const fade=setInterval(()=>{
+    if(v<0.6){
+      v+=0.02;
+      music.volume=v;
+    }else clearInterval(fade);
+  },200);
+}
+
+/* unlock */
+function unlock(day,el){
+  startTick();
+  startBackgroundMusic();
+
+  const pass=prompt(`Password for ${day} day`);
+  if(!pass) return;
+
+  if(pass.toLowerCase()===passwords[day]){
+    stopTick();
+    el.classList.add("unlocked");
+    el.querySelector(".icon").innerText="🔓";
+    celebrate(el);
+    setTimeout(()=>window.location.href=links[day],900);
+  }else{
+    el.classList.add("shake");
+    setTimeout(()=>el.classList.remove("shake"),400);
+    alert("❌ Galat password 😜");
+  }
+}
+
+/* sparkles */
+function celebrate(el){
+  for(let i=0;i<15;i++){
+    const s=document.createElement("div");
+    s.className="spark";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=(el.getBoundingClientRect().top+20)+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1200);
+  }
+}
+
+/* countdown */
+setInterval(()=>{
+  document.querySelectorAll(".countdown").forEach(cd=>{
+    const now=new Date();
+    const target=new Date(now.getFullYear(),1,cd.dataset.day);
+    const diff=target-now;
+    if(diff<=0){
+      cd.innerText="Unlocked today 🎉";
+    }else{
+      const h=Math.floor(diff/1000/60/60);
+      const m=Math.floor(diff/1000/60)%60;
+      const s=Math.floor(diff/1000)%60;
+      cd.innerText=`⏳ Opens in ${h}h ${m}m ${s}s`;
+    }
+  });
+},1000);
+
+/* hearts bg */
+(()=>{
+  const bg=document.getElementById("bg");
+  for(let i=0;i<16;i++){
+    const h=document.createElement("div");
+    h.className="heart-bg";
+    h.innerText=Math.random()>.5?"❤️":"💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=Math.random()*20+12+"px";
+    h.style.animationDuration=Math.random()*6+6+"s";
+    bg.appendChild(h);
+  }
+})();
+</script>
 
 </body>
 </html>
