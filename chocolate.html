@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Day</title>
+    <style>
+        body { background: #efebe9; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif; }
+        .choco-container { display: flex; flex-direction: column; gap: 15px; }
+        .bar { width: 250px; padding: 20px; background: #5d4037; color: white; text-align: center; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; border: 2px solid #3e2723; }
+        .bar.eaten { background: transparent; color: #5d4037; border: 2px dashed #5d4037; }
+    </style>
+</head>
+<body>
+    <h1 style="color: #5d4037;">Happy Chocolate Day! 🍫</h1>
+    <p>Tap to unwrap...</p>
+    
+    <div class="choco-container">
+        <div class="bar" onclick="this.classList.add('eaten'); this.innerText='You are sweeter ❤️'">Dairy Milk</div>
+        <div class="bar" onclick="this.classList.add('eaten'); this.innerText='My favorite treat 🍬'">KitKat</div>
+        <div class="bar" onclick="this.classList.add('eaten'); this.innerText='Love you lots! 🍩'">Ferrero Rocher</div>
+    </div>
+    <br><br>
+    <a href="index.html" style="color: #888;">Back</a>
+</body>
+</html>
+
