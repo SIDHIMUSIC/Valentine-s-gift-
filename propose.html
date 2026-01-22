@@ -1,295 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You? 💍</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* --- BACKGROUND --- */
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Nunito', sans-serif;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propose Day 💍</title>
 
-        /* --- RING BOX STYLES --- */
-        .ring-box {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            z-index: 10;
-        }
-        .box-bottom {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 80px;
-            background: #d32f2f;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .box-lid {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 70px;
-            background: #b71c1c;
-            border-radius: 20px 20px 0 0;
-            transform-origin: bottom;
-            transition: transform 0.8s cubic-bezier(0.4, 2.5, 0.6, 0.8);
-            z-index: 3;
-        }
-        .box-trim {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            height: 2px;
-            background: #ffd700;
-        }
-        .ring {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            font-size: 80px;
-            z-index: 2;
-            transition: all 1s ease 0.3s;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 
-        /* Open State */
-        .ring-box.open .box-lid { transform: rotateX(-110deg); }
-        .ring-box.open .ring { top: -40px; transform: translateX(-50%) scale(1.2); }
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(135deg,#ff9a9e,#fecfef);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Nunito',sans-serif;
+    overflow:hidden;
+}
 
-        /* --- QUESTION LAYERS --- */
-        .overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 100;
-            animation: fadeIn 0.5s;
-        }
+/* ---------- RING BOX ---------- */
+.ring-box{
+    width:150px;height:150px;
+    position:relative;cursor:pointer;
+    z-index:5;
+}
+.box-bottom{
+    position:absolute;bottom:0;width:100%;height:80px;
+    background:#d32f2f;border-radius:0 0 20px 20px;
+}
+.box-lid{
+    position:absolute;top:0;width:100%;height:70px;
+    background:#b71c1c;border-radius:20px 20px 0 0;
+    transform-origin:bottom;transition:.8s;
+}
+.ring{
+    position:absolute;top:45px;left:50%;
+    transform:translateX(-50%) scale(0);
+    font-size:80px;transition:1s;
+}
+.ring-box.open .box-lid{transform:rotateX(-110deg);}
+.ring-box.open .ring{top:-40px;transform:translateX(-50%) scale(1.2);}
 
-        .question-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 80%;
-        }
+/* ---------- OVERLAY ---------- */
+.overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.6);
+    display:none;justify-content:center;align-items:center;
+    z-index:1000;
+}
+.card{
+    background:#fff;padding:30px;border-radius:20px;
+    text-align:center;
+}
+.btn{
+    padding:12px 30px;border:none;border-radius:30px;
+    font-size:18px;margin:10px;cursor:pointer;
+}
+.yes{background:#4caf50;color:#fff;}
+.no{background:#f44336;color:#fff;position:relative;}
 
-        h2 { color: #d32f2f; font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin: 0 0 20px 0; }
-        
-        .btn-group { display: flex; gap: 20px; justify-content: center; }
-        .btn {
-            padding: 10px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .btn-yes { background: #4CAF50; color: white; }
-        .btn-no { background: #f44336; color: white; }
-        .btn:active { transform: scale(0.95); }
+/* ---------- FINAL SCENE ---------- */
+.scene{
+    position:fixed;inset:0;
+    background:linear-gradient(135deg,#ff9a9e,#fecfef);
+    display:none;overflow:hidden;
+    transform:scale(1);
+    transition:transform 3s ease-out;
+}
+.scene.zoom{ transform:scale(1.08); }
 
-        /* --- PROPOSAL ANIMATION SCENE --- */
-        .scene-container {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            display: none; /* Hidden initially */
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            overflow: hidden;
-        }
+/* Spotlight */
+.spotlight{
+    position:absolute;inset:0;
+    background:radial-gradient(circle at 60% 55%,
+        rgba(255,255,255,.6),
+        rgba(255,255,255,.15),
+        rgba(0,0,0,.7));
+    opacity:0;transition:1.2s;
+}
 
-        .boy {
-            font-size: 100px;
-            position: absolute;
-            left: -150px; /* Start off screen */
-            bottom: 30%;
-            transition: left 2s ease-in-out;
-        }
-        
-        .girl {
-            font-size: 100px;
-            position: absolute;
-            right: 20%;
-            bottom: 30%;
-        }
+/* Characters */
+.character{
+    position:absolute;bottom:25%;
+    font-size:130px;
+    transition:all .8s cubic-bezier(.4,1.4,.6,1);
+}
+.boy{left:-200px;transform:scaleX(-1);}
+.boy-walk{left:24%;}
+.boy-kneel{bottom:27%;}
+.girl{right:12%;transform:scaleX(-1);}
 
-        .final-ring {
-            font-size: 50px;
-            position: absolute;
-            left: 45%; /* Initially with boy */
-            bottom: 35%;
-            opacity: 0;
-            transition: all 1s ease;
-        }
+/* Ring */
+.final-ring{
+    position:absolute;
+    left:28%;bottom:45%;
+    font-size:60px;
+    opacity:0;
+    transition:2s cubic-bezier(.4,1.4,.6,1);
+}
+.ring-fly{
+    opacity:1;
+    left:58%;
+    bottom:36%;
+    transform:scale(0.9);
+}
 
-        /* Classes for Animation Steps */
-        .scene-active .boy { left: 45%; } /* Boy moves to center */
-        
-        /* Ring moves from Boy to Girl */
-        .ring-giving .final-ring { 
-            opacity: 1;
-            left: 70%; /* Move to girl */
-            bottom: 35%;
-        }
+/* Text */
+.final-text{
+    position:absolute;top:12%;width:100%;
+    text-align:center;
+    font-family:'Dancing Script',cursive;
+    font-size:3rem;color:#b71c1c;
+    opacity:0;transition:1.2s;
+}
 
-        .final-text {
-            position: absolute;
-            top: 20%;
-            width: 100%;
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: #d32f2f;
-            opacity: 0;
-            transition: opacity 1s;
-        }
+/* ---------- NAMES ---------- */
+.names{
+    position:absolute;
+    top:22%;
+    width:100%;
+    text-align:center;
+    font-family:'Dancing Script',cursive;
+    font-size:2.6rem;
+}
 
-        .back-link {
-            position: absolute;
-            top: 20px; left: 20px;
-            color: white; text-decoration: none; font-weight: bold;
-        }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* Typing cursor */
+.cursor{
+    display:inline-block;
+    animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:0;}}
 
-    </style>
+/* Colors + glow */
+.harry{
+    color:#1e88e5;
+    text-shadow:0 0 10px rgba(30,136,229,.8);
+    animation:glowBlue 3s infinite alternate;
+}
+.muskan{
+    color:#e91e63;
+    text-shadow:0 0 12px rgba(233,30,99,.9);
+    animation:glowPink 2.5s infinite alternate;
+}
+@keyframes glowBlue{
+    from{ text-shadow:0 0 8px #1e88e5; }
+    to{ text-shadow:0 0 20px #90caf9; }
+}
+@keyframes glowPink{
+    from{ text-shadow:0 0 8px #e91e63; }
+    to{ text-shadow:0 0 22px #f48fb1; }
+}
+
+/* Sparkles for Muskan */
+.sparkle{
+    position:absolute;
+    color:#ffd700;
+    font-size:14px;
+    animation:spark 1.5s ease-out forwards;
+}
+@keyframes spark{
+    to{
+        transform:translateY(-40px) scale(0);
+        opacity:0;
+    }
+}
+
+/* Hearts */
+.heart{
+    position:fixed;
+    top:-20px;
+    font-size:24px;
+    animation:fall linear forwards;
+}
+@keyframes fall{
+    to{transform:translateY(110vh);opacity:0;}
+}
+</style>
 </head>
+
 <body>
 
-    <a href="index.html" class="back-link">⬅ Back</a>
+<h1 id="tap" style="position:absolute;top:15%;color:white;font-family:'Dancing Script';">
+Tap the Box…
+</h1>
 
-    <h1 id="tap-text" style="color:white; font-family:'Dancing Script'; font-size:2.5rem; position:absolute; top:15%;">Tap the Box...</h1>
-    
-    <div class="ring-box" onclick="openBox()">
-        <div class="box-lid"><div class="box-trim" style="bottom:10px"></div></div>
-        <div class="ring">💍</div>
-        <div class="box-bottom"><div class="box-trim" style="top:10px"></div></div>
+<div class="ring-box" id="box" onclick="openBox()">
+    <div class="box-lid"></div>
+    <div class="ring">💍</div>
+    <div class="box-bottom"></div>
+</div>
+
+<!-- QUESTION -->
+<div class="overlay" id="q1">
+    <div class="card">
+        <h2>Pehna du? 🥺</h2>
+        <button class="btn yes" onclick="start()">Yes ❤️</button>
+        <button class="btn no" id="noBtn">No 😒</button>
+    </div>
+</div>
+
+<!-- FINAL SCENE -->
+<div class="scene" id="scene">
+    <div class="spotlight" id="spot"></div>
+
+    <div class="final-text" id="msg">Happy Propose Day ❤️</div>
+
+    <div class="names" id="names">
+        <span id="harry"></span>
+        <span id="heartTxt"></span>
+        <span id="muskan"></span>
+        <span class="cursor">|</span>
     </div>
 
-    <div class="overlay" id="q1-layer">
-        <div class="question-card">
-            <h2>Pehna Du? 🥺</h2>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="startProposal()">Yes ❤️</button>
-                <button class="btn btn-no" onclick="showForcedYes()">No 😒</button>
-            </div>
-        </div>
-    </div>
+    <div class="character boy" id="boy">🚶‍♂️</div>
+    <div class="final-ring" id="ringFinal">💍</div>
+    <div class="character girl" id="girl">🧍‍♀️</div>
+</div>
 
-    <div class="overlay" id="q2-layer">
-        <div class="question-card">
-            <h2>Ab option hi nahi hai! 😂</h2>
-            <p>Select one:</p>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="startProposal()">YES! 😍</button>
-                <button class="btn btn-yes" onclick="startProposal()">YES! 😘</button>
-            </div>
-        </div>
-    </div>
+<audio id="sound">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b5f2c5df3.mp3">
+</audio>
 
-    <div class="scene-container" id="final-scene">
-        <div class="final-text" id="final-msg">Happy Propose Day! ❤️</div>
-        <div class="boy">🤵</div> <div class="final-ring" id="anim-ring">💍</div>
-        <div class="girl">👰</div> </div>
+<script>
+const noBtn=document.getElementById("noBtn");
 
-    <script>
-        let opened = false;
+/* NO runs */
+function moveNo(){
+    noBtn.style.position="fixed";
+    noBtn.style.left=Math.random()*(innerWidth-120)+"px";
+    noBtn.style.top=Math.random()*(innerHeight-80)+"px";
+}
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
 
-        function openBox() {
-            if(opened) return;
-            opened = true;
+function openBox(){
+    box.classList.add("open");
+    tap.style.opacity=0;
+    setTimeout(()=>{
+        box.style.display="none";
+        q1.style.display="flex";
+    },1000);
+}
 
-            const box = document.querySelector('.ring-box');
-            document.getElementById('tap-text').style.opacity = '0';
-            box.classList.add('open');
+function start(){
+    q1.style.display="none";
+    scene.style.display="block";
 
-            // 1 Second Delay before asking
-            setTimeout(() => {
-                document.getElementById('q1-layer').style.display = 'flex';
-            }, 1000);
+    setTimeout(()=>boy.classList.add("boy-walk"),200);
+
+    setTimeout(()=>{
+        boy.textContent="🧎‍♂️";
+        boy.classList.add("boy-kneel");
+        girl.textContent="💁‍♀️";
+    },2600);
+
+    setTimeout(()=>{
+        ringFinal.classList.add("ring-fly");
+        spot.style.opacity=1;
+        sound.play();
+        scene.classList.add("zoom");
+        hearts();
+        typeNames();
+    },3800);
+
+    setTimeout(()=>msg.style.opacity=1,5200);
+}
+
+/* Typing animation */
+function typeNames(){
+    const h="Harry";
+    const m="Muskan";
+    let i=0,j=0;
+
+    const harryEl=document.getElementById("harry");
+    const heartEl=document.getElementById("heartTxt");
+    const muskanEl=document.getElementById("muskan");
+
+    harryEl.className="harry";
+    muskanEl.className="muskan";
+
+    const int1=setInterval(()=>{
+        if(i<h.length){
+            harryEl.textContent+=h[i++];
+        }else{
+            clearInterval(int1);
+            heartEl.textContent=" ❤️ ";
+            const int2=setInterval(()=>{
+                if(j<m.length){
+                    muskanEl.textContent+=m[j++];
+                    sparkle(muskanEl);
+                }else clearInterval(int2);
+            },180);
         }
+    },180);
+}
 
-        function showForcedYes() {
-            // Hide Q1, Show Q2 (Two Yes buttons)
-            document.getElementById('q1-layer').style.display = 'none';
-            document.getElementById('q2-layer').style.display = 'flex';
-        }
+/* Sparkles on Muskan */
+function sparkle(el){
+    const s=document.createElement("span");
+    s.className="sparkle";
+    s.textContent="✨";
+    const r=el.getBoundingClientRect();
+    s.style.left=r.left+r.width/2+"px";
+    s.style.top=r.top+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1500);
+}
 
-        function startProposal() {
-            // Hide all questions
-            document.getElementById('q1-layer').style.display = 'none';
-            document.getElementById('q2-layer').style.display = 'none';
-            
-            // Show Scene
-            const scene = document.getElementById('final-scene');
-            scene.style.display = 'flex';
+/* Hearts */
+function hearts(){
+    for(let i=0;i<25;i++){
+        const h=document.createElement("div");
+        h.className="heart";
+        h.textContent="💓";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(Math.random()*2+3)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    }
+}
+</script>
 
-            // Start Animation Sequence
-            setTimeout(() => {
-                // Step 1: Boy walks in
-                scene.classList.add('scene-active');
-                
-                setTimeout(() => {
-                    // Step 2: Ring appears and moves to Girl
-                    document.getElementById('anim-ring').style.opacity = '1';
-                    scene.classList.add('ring-giving');
-                    
-                    setTimeout(() => {
-                        // Step 3: Show Final Text
-                        document.getElementById('final-msg').style.opacity = '1';
-                        // Confetti
-                        startConfetti();
-                    }, 1000);
-
-                }, 2000); // Wait for boy to reach center
-            }, 100);
-        }
-
-        function startConfetti() {
-            setInterval(() => {
-                const c = document.createElement('div');
-                c.innerText = '💖';
-                c.style.position = 'fixed';
-                c.style.top = '-10px';
-                c.style.left = Math.random() * 100 + 'vw';
-                c.style.fontSize = '20px';
-                c.style.animation = 'fall 3s linear';
-                document.body.appendChild(c);
-                setTimeout(() => c.remove(), 3000);
-            }, 100);
-            
-            // Add keyframes for fall dynamically if needed, 
-            // but for simplicity assume basic fall logic or use existing CSS
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes fall { to { transform: translateY(100vh); } }
-            `;
-            document.head.appendChild(style);
-        }
-    </script>
 </body>
 </html>
