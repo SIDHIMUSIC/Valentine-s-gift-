@@ -1,21 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teddy Day</title>
-    <style>
-        body { background: #fff3e0; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif; }
-        .bear { font-size: 120px; animation: waddle 1s infinite alternate; }
-        @keyframes waddle { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Teddy Day 🧸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    background:radial-gradient(circle,#fff8e1,#ffe0b2);
+    font-family:'Nunito',sans-serif;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* HEADER */
+h1{
+    font-family:'Fredoka One',cursive;
+    color:#bf360c;
+    font-size:2.5rem;
+    margin:20px 0 5px;
+}
+.names{
+    font-family:'Fredoka One',cursive;
+    font-size:1.6rem;
+}
+.harry{color:#1e88e5;}
+.muskan{color:#e91e63;}
+.sub{
+    color:#6d4c41;
+    font-size:1.1rem;
+    margin-bottom:15px;
+}
+
+/* WHATSAPP CARD */
+.chat{
+    max-width:320px;
+    margin:20px auto;
+    background:#dcf8c6;
+    border-radius:18px 18px 4px 18px;
+    padding:14px 16px;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+    text-align:left;
+    cursor:pointer;
+    animation:chatIn 1s ease forwards;
+}
+@keyframes chatIn{
+    from{opacity:0;transform:translateY(40px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.chat p{
+    margin:0;
+    color:#2e7d32;
+    font-size:1.05rem;
+    line-height:1.5;
+    min-height:120px;
+}
+.tap{
+    text-align:center;
+    margin-top:10px;
+    font-weight:bold;
+    color:#1b5e20;
+    animation:pulse 1.2s infinite;
+}
+@keyframes pulse{50%{transform:scale(1.1)}}
+
+/* TEDDY */
+.teddy-wrap{
+    display:none;
+    justify-content:center;
+    margin-top:10px;
+    animation:fadeIn 1.2s ease forwards;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+svg{
+    width:280px;
+    max-width:90%;
+}
+
+/* BLINK */
+.eye{animation:blink 4s infinite}
+@keyframes blink{
+    0%,90%,100%{transform:scaleY(1)}
+    95%{transform:scaleY(.1)}
+}
+
+/* HEAD TILT */
+.head{
+    transform-origin:center bottom;
+    animation:tilt 3s infinite ease-in-out;
+}
+@keyframes tilt{
+    0%{transform:rotate(0deg)}
+    50%{transform:rotate(4deg)}
+    100%{transform:rotate(0deg)}
+}
+
+/* HEART */
+.heart{animation:pulseHeart 1.5s infinite}
+@keyframes pulseHeart{50%{transform:scale(1.15)}}
+
+/* FALLING */
+.fall{
+    position:fixed;
+    top:-20px;
+    font-size:22px;
+    animation:fall 4s linear forwards;
+}
+@keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
 </head>
+
 <body>
-    <div class="bear">🧸</div>
-    <h1 style="color: #ff9800;">Happy Teddy Day!</h1>
-    <p>Here is a virtual hug that lasts forever.</p>
-    <p>Sending warm cuddles!</p>
-    <br>
-    <a href="index.html" style="color: #888;">Back</a>
+
+<h1>Happy Teddy Day 🧸</h1>
+<div class="names">
+    <span class="harry">Harry</span> ❤️ <span class="muskan">Muskan</span>
+</div>
+<div class="sub">Awww… I love you beary much 🤗</div>
+
+<!-- WHATSAPP STYLE CARD -->
+<div class="chat" onclick="showMagic()">
+    <p id="typeText"></p>
+    <div class="tap">✨ Tap to see magic ✨</div>
+</div>
+
+<!-- REAL TEDDY -->
+<div class="teddy-wrap" id="teddy">
+<svg viewBox="0 0 300 420">
+
+    <!-- EARS -->
+    <circle cx="80" cy="85" r="42" fill="#8d6e63"/>
+    <circle cx="220" cy="85" r="42" fill="#8d6e63"/>
+    <circle cx="80" cy="85" r="24" fill="#d7ccc8"/>
+    <circle cx="220" cy="85" r="24" fill="#d7ccc8"/>
+
+    <!-- HEAD -->
+    <g class="head">
+        <circle cx="150" cy="130" r="80" fill="#8d6e63"/>
+        <ellipse cx="150" cy="160" rx="45" ry="35" fill="#d7ccc8"/>
+        <circle cx="120" cy="130" r="6" fill="#3e2723" class="eye"/>
+        <circle cx="180" cy="130" r="6" fill="#3e2723" class="eye"/>
+        <ellipse cx="150" cy="155" rx="10" ry="7" fill="#3e2723"/>
+        <path d="M140 165 Q150 172 160 165" stroke="#3e2723" stroke-width="2" fill="none"/>
+    </g>
+
+    <!-- ARMS -->
+    <ellipse cx="60" cy="260" rx="35" ry="55" fill="#8d6e63"/>
+    <ellipse cx="240" cy="260" rx="35" ry="55" fill="#8d6e63"/>
+
+    <!-- BODY -->
+    <ellipse cx="150" cy="270" rx="85" ry="80" fill="#8d6e63"/>
+    <ellipse cx="150" cy="290" rx="48" ry="45" fill="#d7ccc8"/>
+
+    <!-- HEART -->
+    <g class="heart">
+    <path d="M150 290
+             C150 275 125 275 125 295
+             C125 320 150 335 150 335
+             C150 335 175 320 175 295
+             C175 275 150 275 150 290Z"
+          fill="#e53935"/>
+    </g>
+
+    <!-- LEGS -->
+    <ellipse cx="105" cy="360" rx="35" ry="40" fill="#8d6e63"/>
+    <ellipse cx="195" cy="360" rx="35" ry="40" fill="#8d6e63"/>
+    <ellipse cx="105" cy="370" rx="18" ry="15" fill="#d7ccc8"/>
+    <ellipse cx="195" cy="370" rx="18" ry="15" fill="#d7ccc8"/>
+
+</svg>
+</div>
+
+<script>
+/* Typing text */
+const text = `For my cutest teddy 🧸
+This teddy carries all my love,
+my warmth, my hugs and my heart ❤️
+
+Whenever you feel low,
+just remember —
+I’m always hugging you tightly 🤍✨`;
+
+let i=0;
+function type(){
+    if(i<text.length){
+        document.getElementById("typeText").innerHTML +=
+        text[i]==="\n" ? "<br>" : text[i];
+        i++;
+        setTimeout(type,35);
+    }
+}
+type();
+
+/* Tap magic */
+function showMagic(){
+    document.querySelector(".chat").style.display="none";
+    document.getElementById("teddy").style.display="flex";
+
+    for(let i=0;i<25;i++){
+        const e=document.createElement("div");
+        e.className="fall";
+        e.innerText=["❤️","🧸","🤎"][Math.floor(Math.random()*3)];
+        e.style.left=Math.random()*100+"vw";
+        document.body.appendChild(e);
+        setTimeout(()=>e.remove(),4000);
+    }
+}
+</script>
+
 </body>
 </html>
