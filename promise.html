@@ -1,38 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Promise Day</title>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <style>
-        body { background: #e1f5fe; height: 100vh; display: flex; flex-direction: column; align-items: center; font-family: sans-serif; padding: 20px; text-align: center; }
-        h1 { color: #0288d1; margin-top: 30px; }
-        .card { 
-            background: white; width: 90%; max-width: 350px; padding: 20px; 
-            border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-            text-align: left; border-left: 5px solid #0288d1;
-            font-family: 'Indie Flower', cursive; font-size: 1.3rem; line-height: 1.6;
-        }
-        .promise-line { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px; }
-        button { margin-top: 20px; padding: 10px 25px; background: #0288d1; color: white; border: none; border-radius: 30px; font-size: 1.1rem; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <h1>My Promises 🤞</h1>
-    <p style="color: #555; margin-bottom: 20px;">Some things I want you to know...</p>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promise Day 💍</title>
 
-    <div class="card">
-        <div class="promise-line"><span>1.</span> I promise to always listen to you.</div>
-        <div class="promise-line"><span>2.</span> I promise to support your dreams.</div>
-        <div class="promise-line"><span>3.</span> I promise to never go to bed angry.</div>
-        <div class="promise-line"><span>4.</span> I promise to share my food (mostly).</div>
-        <div class="promise-line"><span>5.</span> I promise to stay by your side.</div>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Righteous&family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at top,#0f2a44,#000814);
+  font-family:'Nunito',sans-serif;
+  color:#fff;
+  text-align:center;
+}
+.hidden{display:none}
+h1{
+  font-family:'Righteous';
+  color:#00e5ff;
+  text-shadow:0 0 18px #00e5ff;
+}
+.container{padding:20px}
+
+/* Buttons */
+.btns{display:flex;justify-content:space-between;margin-top:20px}
+.btn{
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:#00e5ff;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(0,229,255,.6);
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  padding:22px;
+  max-width:440px;
+  margin:20px auto;
+  box-shadow:0 0 35px rgba(0,229,255,.25);
+}
+.item{text-align:left;margin:10px 0}
+.check{color:#00e5ff;margin-right:8px}
+
+.sign{
+  margin-top:12px;
+  font-family:'Pacifico';
+  font-size:1.4rem;
+}
+.harry{color:#00e5ff}
+.muskan{color:#ff6fae}
+
+/* Scan */
+.fingerprint{
+  width:110px;height:130px;
+  margin:20px auto;
+  border:2px solid #00e5ff;
+  border-radius:30px;
+  font-size:60px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+}
+.scan{
+  position:absolute;
+  width:100%;height:6px;
+  background:#00e5ff;
+  top:0;
+  animation:scan 1.5s linear infinite;
+}
+@keyframes scan{from{top:0}to{top:100%}}
+
+/* Final split */
+.split{display:flex;gap:15px}
+.col{width:50%;text-align:left}
+.divider{width:2px;background:linear-gradient(#00e5ff,#ff6fae)}
+
+/* Warning */
+.warning{
+  margin:15px 0;
+  color:#ff3b3b;
+  font-weight:bold;
+  border-top:1px dashed #ff3b3b;
+  border-bottom:1px dashed #ff3b3b;
+  padding:10px;
+}
+
+/* Sparkle */
+.sparkle{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 10px #00e5ff;
+  animation:spark 1.2s linear forwards;
+}
+@keyframes spark{to{transform:translateY(-80px) scale(0);opacity:0}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- SCAN PAGE -->
+<div id="scanPage">
+  <h1>Promise Lock 🔒</h1>
+  <div class="fingerprint" onclick="unlock()">
+    🖐️
+    <div id="scanLine" class="scan hidden"></div>
+  </div>
+  <p id="scanText">Tap to verify trust</p>
+</div>
+
+<!-- HARRY -->
+<div id="harryPromise" class="hidden">
+  <h1>Harry → Muskan 💙</h1>
+  <div class="card">
+    <div class="item"><span class="check">✔</span>Respect Muskan always</div>
+    <div class="item"><span class="check">✔</span>Protect her</div>
+    <div class="item"><span class="check">✔</span>Never lie</div>
+    <div class="item"><span class="check">✔</span>Never leave</div>
+    <div class="item"><span class="check">✔</span>Love forever ❤️</div>
+    <div class="sign harry">✍️ Harry</div>
+  </div>
+  <div class="btns">
+    <span></span>
+    <button class="btn" onclick="nextToMuskan()">Next ➡</button>
+  </div>
+</div>
+
+<!-- MUSKAN -->
+<div id="muskanPromise" class="hidden">
+  <h1>Muskan → Harry 💖</h1>
+  <div class="card">
+    <div class="item"><span class="check">✔</span>Trust Harry</div>
+    <div class="item"><span class="check">✔</span>Support him</div>
+    <div class="item"><span class="check">✔</span>Stay honest</div>
+    <div class="item"><span class="check">✔</span>Choose him always 💕</div>
+
+    <div id="muskanSign" class="sign muskan hidden">✍️ Muskan</div>
+    <button id="signBtn" class="btn" onclick="signMuskan()">Tap to Sign ✍️</button>
+  </div>
+  <div class="btns">
+    <button class="btn" onclick="backToHarry()">⬅ Back</button>
+    <span></span>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div id="finalPage" class="hidden">
+  <h1>Promise Completed 💍</h1>
+
+  <div class="card split">
+    <div class="col">
+      <h3 class="harry">Harry 💙</h3>
+      <ul>
+        <li>✔ Respect</li>
+        <li>✔ Protect</li>
+        <li>✔ Honest</li>
+        <li>✔ Forever</li>
+      </ul>
+      <div class="sign harry">✍️ Harry</div>
     </div>
 
-    <button onclick="alert('Pinky Promise! 🤙')">I Promise ❤️</button>
-    <br><br>
-    <a href="index.html" style="color: #888; text-decoration: none;">⬅ Back to Menu</a>
+    <div class="divider"></div>
+
+    <div class="col">
+      <h3 class="muskan">Muskan 💖</h3>
+      <ul>
+        <li>✔ Trust</li>
+        <li>✔ Support</li>
+        <li>✔ Honest</li>
+        <li>✔ Forever</li>
+      </ul>
+      <div class="sign muskan">✍️ Muskan</div>
+    </div>
+  </div>
+
+  <div class="warning">
+    ⚠️ जो तोड़ेगा उसे <b>1 लाख ₹ जुर्माना</b><br>
+    और <b>जेल होगी</b> 🚔
+  </div>
+
+  <p style="color:#ccc">
+    Two hearts. One promise.<br>
+    Forever together ❤️
+  </p>
+
+  <div class="btns">
+    <button class="btn" onclick="backToHarry()">⬅ Back</button>
+    <button class="btn" onclick="finish()">Finish ✔</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+function unlock(){
+  scanLine.classList.remove("hidden");
+  scanText.innerText="Scanning...";
+  setTimeout(()=>{
+    scanPage.classList.add("hidden");
+    harryPromise.classList.remove("hidden");
+  },2000);
+}
+function nextToMuskan(){
+  harryPromise.classList.add("hidden");
+  muskanPromise.classList.remove("hidden");
+}
+function backToHarry(){
+  muskanPromise.classList.add("hidden");
+  finalPage.classList.add("hidden");
+  harryPromise.classList.remove("hidden");
+}
+function signMuskan(){
+  muskanSign.classList.remove("hidden");
+  signBtn.style.display="none";
+
+  for(let i=0;i<25;i++){
+    const s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=(50+Math.random()*40-20)+"vw";
+    s.style.top=(60+Math.random()*10)+"vh";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1200);
+  }
+
+  setTimeout(()=>{
+    muskanPromise.classList.add("hidden");
+    finalPage.classList.remove("hidden");
+  },1200);
+}
+function finish(){
+  alert("Promises Locked Forever 🔒❤️");
+}
+</script>
+
 </body>
 </html>
-
