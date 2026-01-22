@@ -1,46 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Kiss Day</title>
-    <style>
-        body { background: #ffebee; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif; overflow: hidden; }
-        h1 { color: #d32f2f; font-size: 2.5rem; }
-        .main-icon { font-size: 80px; }
-        button { margin-top: 30px; padding: 15px 40px; background: #d32f2f; color: white; border: none; border-radius: 50px; font-size: 1.5rem; cursor: pointer; box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4); animation: pulse 1.5s infinite; }
-        
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        
-        /* Floating Kisses */
-        .kiss { position: absolute; font-size: 30px; animation: floatUp 3s linear forwards; }
-        @keyframes floatUp { to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harry ❤️ Muskan | Kiss Day 💋</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(180deg,#ff758c,#ff7eb3);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  font-family:'Nunito',sans-serif;
+  overflow:hidden;
+  user-select:none;
+  transition:background .8s;
+}
+
+/* CRAZY LOVE MODE */
+body.fire{
+  background:linear-gradient(180deg,#ff512f,#dd2476);
+}
+
+/* Names */
+.names{
+  margin-top:22px;
+  font-family:'Pacifico';
+  font-size:2.2rem;
+  color:#fff;
+  text-shadow:0 6px 15px rgba(0,0,0,.3);
+}
+
+/* Score */
+.score{
+  margin-top:6px;
+  background:#fff;
+  padding:8px 18px;
+  border-radius:30px;
+  font-size:1.1rem;
+  color:#d32f2f;
+  font-weight:bold;
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+}
+
+/* Girl */
+.girl{
+  margin-top:35px;
+  transition:transform .2s;
+}
+.girl span{
+  font-size:110px;
+  display:block;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.2));
+}
+
+/* Bounce / shy */
+.hit{animation:bounce .3s}
+.shy{animation:shy .5s}
+@keyframes bounce{50%{transform:scale(1.2)}}
+@keyframes shy{
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+}
+
+/* Controls */
+.controls{
+  margin-bottom:40px;
+  text-align:center;
+}
+.boy{
+  font-size:85px;
+  margin-bottom:10px;
+}
+button{
+  background:#d32f2f;
+  color:#fff;
+  border:none;
+  padding:14px 42px;
+  font-size:1.5rem;
+  border-radius:50px;
+  font-family:'Pacifico';
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(211,47,47,.45);
+}
+button:active{transform:scale(.95)}
+
+/* Flying kiss */
+.kiss{
+  position:absolute;
+  font-size:40px;
+  pointer-events:none;
+  transition:all .8s ease-in;
+}
+
+/* Text pop */
+.pop{
+  position:absolute;
+  font-family:'Pacifico';
+  color:#c2185b;
+  font-size:1.6rem;
+  animation:pop 1s forwards;
+  text-shadow:1px 1px #fff;
+}
+@keyframes pop{
+  50%{transform:translateY(-30px) scale(1.2)}
+  100%{opacity:0;transform:translateY(-60px)}
+}
+
+/* Hearts */
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation:float 1.5s forwards;
+}
+@keyframes float{
+  to{transform:translateY(-100px) rotate(360deg);opacity:0}
+}
+
+/* Big message */
+.big-msg{
+  position:absolute;
+  top:45%;
+  font-family:'Pacifico';
+  font-size:2.2rem;
+  color:#fff;
+  text-shadow:0 8px 20px rgba(0,0,0,.4);
+  animation:fadeBig 2s forwards;
+}
+@keyframes fadeBig{
+  0%{opacity:0;transform:scale(.6)}
+  30%{opacity:1;transform:scale(1.2)}
+  100%{opacity:0;transform:scale(1)}
+}
+
+/* Back */
+.back{
+  position:absolute;
+  left:15px;
+  top:15px;
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+}
+</style>
 </head>
+
 <body>
-    <div class="main-icon">😘</div>
-    <h1>Happy Kiss Day!</h1>
-    <p>Forehead kisses & lots of love.</p>
-    
-    <button onclick="sendKisses()">Send Kisses 💋</button>
 
-    <br><br><br>
-    <a href="index.html" style="color: #888; text-decoration: none;">⬅ Back</a>
+<a href="index.html" class="back">⬅ Back</a>
 
-    <script>
-        function sendKisses() {
-            for(let i=0; i<20; i++) {
-                let k = document.createElement('div');
-                k.innerText = Math.random() > 0.5 ? '💋' : '😘';
-                k.classList.add('kiss');
-                k.style.left = Math.random() * 100 + 'vw';
-                k.style.top = '100vh';
-                k.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                document.body.appendChild(k);
-                setTimeout(() => k.remove(), 4000);
-            }
-        }
-    </script>
+<div class="names">Harry ❤️ Muskan</div>
+<div class="score">Kisses Sent: <span id="count">0</span> 😘</div>
+
+<div class="girl" id="girl">
+  <span id="girlFace">😙</span>
+</div>
+
+<div class="controls">
+  <div class="boy">👨</div>
+  <button onclick="sendKiss()">Send Kiss 💋</button>
+</div>
+
+<script>
+let count=0;
+const girl=document.getElementById("girl");
+const face=document.getElementById("girlFace");
+const counter=document.getElementById("count");
+
+function sendKiss(){
+  const btn=document.querySelector("button");
+  const kiss=document.createElement("div");
+  kiss.className="kiss";
+  kiss.innerText="💋";
+
+  const b=btn.getBoundingClientRect();
+  kiss.style.left=b.left+b.width/2+"px";
+  kiss.style.top=b.top+"px";
+  document.body.appendChild(kiss);
+
+  const g=face.getBoundingClientRect();
+  setTimeout(()=>{
+    kiss.style.transform=`translate(${g.left-b.left}px,${g.top-b.top}px) scale(1.4)`;
+    kiss.style.opacity="0";
+  },30);
+
+  setTimeout(()=>{
+    kiss.remove();
+    hit(g.left,g.top);
+  },800);
+}
+
+function hit(x,y){
+  count++;
+  counter.innerText=count;
+
+  // SHY MODE
+  if(count>=5 && count<10){
+    face.innerText="🙈";
+    girl.classList.add("shy");
+    setTimeout(()=>girl.classList.remove("shy"),500);
+  }else if(count>=50){
+    face.innerText="🥵";
+    document.body.classList.add("fire");
+  }else{
+    const reactions=["🥰","😘","😍","😳"];
+    face.innerText=reactions[Math.floor(Math.random()*reactions.length)];
+  }
+
+  setTimeout(()=>face.innerText="😙",900);
+
+  girl.classList.remove("hit");
+  void girl.offsetWidth;
+  girl.classList.add("hit");
+
+  popText("Mwaah 💋",x,y);
+
+  for(let i=0;i<7;i++) heart(x,y);
+
+  // 10 KISSES SPECIAL
+  if(count===10){
+    bigMessage("So much love 😍");
+    for(let i=0;i<20;i++) heart(x,y);
+  }
+
+  // 50 KISSES SPECIAL
+  if(count===50){
+    bigMessage("Too hot to handle ❤️‍🔥");
+    for(let i=0;i<40;i++) heart(x,y);
+  }
+}
+
+function popText(txt,x,y){
+  const t=document.createElement("div");
+  t.className="pop";
+  t.innerText=txt;
+  t.style.left=x+20+"px";
+  t.style.top=y-20+"px";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),1000);
+}
+
+function heart(x,y){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText=Math.random()>0.5?"❤️":"💕";
+  h.style.left=x+"px";
+  h.style.top=y+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1500);
+}
+
+function bigMessage(text){
+  const m=document.createElement("div");
+  m.className="big-msg";
+  m.innerText=text;
+  document.body.appendChild(m);
+  setTimeout(()=>m.remove(),2000);
+}
+</script>
+
 </body>
 </html>
-
