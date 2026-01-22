@@ -154,9 +154,10 @@ p{
 
 <div class="container">
 <h1>7 Days of Love</h1>
-<p>Har din apne waqt pe unlock hoga ⏳</p>
+<p>Password ke bina kuch unlock nahi hoga 🔐</p>
 
 <div class="grid">
+
 <div class="day-btn rose" onclick="unlock('rose',this)">
   <div class="day-top">Feb 7: Rose Day <span class="icon">🌹🔒</span></div>
   <div class="countdown" data-day="7"></div>
@@ -196,6 +197,7 @@ p{
   <div class="day-top">Feb 14: Valentine <span class="icon">❤️🔒</span></div>
   <div class="countdown" data-day="14"></div>
 </div>
+
 </div>
 </div>
 
@@ -222,52 +224,44 @@ const links={
   kiss:'kiss.html',valentine:'valentine.html'
 };
 
-/* TICK SOUND */
-let tickInterval=null;
+/* TICK */
+let tick=null;
 function startTick(){
   const t=document.getElementById("tickSound");
-  tickInterval=setInterval(()=>{
-    t.currentTime=0;t.play().catch(()=>{});
-  },1000);
+  tick=setInterval(()=>{t.currentTime=0;t.play().catch(()=>{})},1000);
 }
-function stopTick(){clearInterval(tickInterval);}
+function stopTick(){clearInterval(tick)}
 
-/* BACKGROUND MUSIC */
+/* MUSIC */
 const music=document.getElementById("bgMusic");
 const muteBtn=document.getElementById("muteBtn");
 const slider=document.getElementById("volumeSlider");
 
-let vol=localStorage.getItem("bgVol")||0.6;
-let muted=localStorage.getItem("bgMute")==="true";
-music.volume=vol;slider.value=vol*100;music.muted=muted;
-muteBtn.innerText=muted?"🔇":"🔊";
+music.volume=0.6;
+slider.value=60;
 
 function startMusic(){
   music.volume=0;
   music.play().catch(()=>{});
-  let target=slider.value/100;
   let v=0;
   const fade=setInterval(()=>{
-    if(v<target){v+=0.02;music.volume=v}
+    if(v<slider.value/100){v+=0.02;music.volume=v}
     else clearInterval(fade);
   },200);
 }
 
-slider.oninput=()=>{
-  music.volume=slider.value/100;
-  localStorage.setItem("bgVol",music.volume);
-}
+slider.oninput=()=>music.volume=slider.value/100;
 muteBtn.onclick=()=>{
   music.muted=!music.muted;
   muteBtn.innerText=music.muted?"🔇":"🔊";
-  localStorage.setItem("bgMute",music.muted);
-}
+};
 
-/* UNLOCK */
+/* UNLOCK ONLY BY PASSWORD */
 function unlock(day,el){
   startTick();
   const p=prompt("Password?");
   if(!p) return;
+
   if(p.toLowerCase()===passwords[day]){
     stopTick();
     startMusic();
@@ -281,14 +275,14 @@ function unlock(day,el){
   }
 }
 
-/* COUNTDOWN */
+/* COUNTDOWN (INFO ONLY) */
 setInterval(()=>{
   document.querySelectorAll(".countdown").forEach(cd=>{
     const d=cd.dataset.day;
     const now=new Date();
     const t=new Date(now.getFullYear(),1,d);
     const diff=t-now;
-    if(diff<=0) cd.innerText="Unlocked today 🎉";
+    if(diff<=0) cd.innerText="Today ❤️";
     else{
       const h=Math.floor(diff/36e5),
             m=Math.floor(diff/6e4)%60,
