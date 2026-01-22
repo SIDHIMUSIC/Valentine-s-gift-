@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Valentine</title>
+    <style>
+        body { background: #ffe6e6; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; text-align: center; }
+        h1 { color: #e91e63; font-size: 2.5rem; }
+        .heart { font-size: 80px; animation: beat 1s infinite; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .btn { padding: 15px 30px; font-size: 1.2rem; border: none; border-radius: 30px; cursor: pointer; margin: 10px; color: white; }
+        .yes { background: #4CAF50; }
+        .no { background: #f44336; }
+    </style>
+</head>
+<body>
+    <div class="heart">❤️</div>
+    <h1>Will you be my Valentine?</h1>
+    <p>Today and Always.</p>
+    
+    <div>
+        <button class="btn yes" onclick="alert('Yay! I love you! ❤️')">YES</button>
+        <button class="btn no" onclick="alert('Broken heart... 💔')">No</button>
+    </div>
+    <br>
+    <a href="index.html" style="color: #888;">Back</a>
+</body>
+</html>
+
